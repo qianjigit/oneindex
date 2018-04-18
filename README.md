@@ -17,6 +17,16 @@ Onedrive Directory Index
 18-03-31: 添加console  
 18-04-13: 修复特殊文件名无法下载问题  
 18-04-13: 添加命令行上传功能  
+18-04-16: 更新 2.0 beta  
+18-04-16: 更新展示界面  
+18-04-16: 响应式，支持小屏设备  
+18-04-16: 图片在线预览  
+18-04-16: 视频在线播放  
+18-04-16: 代码在线查看（js、css、html、sh、php、java、md等）  
+18-04-16: README.md 支持，解析各目录下(onedirive目录下) README.md 文件，在页面尾部展示。  
+18-04-18: 音频在线播放  
+18-04-18: HEAD.md 支持，在页面头部展示   
+18-04-18: .password 文件夹加密  
 
 ## 需求：
 1、PHP空间，PHP 5.6+ 打开curl支持  
@@ -29,7 +39,7 @@ Onedrive Directory Index
 3、可以使用  
 
 ## 计划任务  
-[可选]推荐配置，非必需。后台定时刷新缓存，可增加前台访问的速度  
+[可选]**推荐配置**，非必需。后台定时刷新缓存，可增加前台访问的速度  
 ```
 # 每小时刷新一次token
 0 * * * * /具体路径/php /程序具体路径/one.php token:refresh
@@ -37,6 +47,18 @@ Onedrive Directory Index
 # 每十分钟后台刷新一遍缓存
 */10 * * * * /具体路径/php /程序具体路径/one.php cache:refresh
 ```
+
+## 特殊文件实现功能  
+` README.md `、`HEAD.md` 、 `.password`特殊文件使用  
+
+**在文件夹底部添加说明:**  
+>在onedrive的文件夹中添加` README.md `文件，使用markdown语法。  
+
+**在文件夹头部添加说明:**  
+>在onedrive的文件夹中添加`HEAD.md` 文件，使用markdown语法。  
+
+**加密文件夹:**  
+>在onedrive的文件夹中添加`.password`文件，填入密码，密码不能为空。  
 
 ## 命令行功能  
 仅能在php cli模式下运行  
@@ -85,13 +107,15 @@ php one.php upload:file demo.zip /test/d.zip
 需要添加apache/nginx/iis的rewrite的配置文件  
 参考程序根目录下的：`.htaccess`或`nginx.conf`或`Web.config`  
 ```
-    'root_path' => '?' 
+  //在config/base.php 中
+  'root_path' => '?' 
 ```
 改为  
 
 ```
     'root_path' => '' 
 ```  
+> nginx图片404问题,参考https://github.com/donwa/oneindex/issues/14
   
 **缓存时间:**  
 初步测试直链过期时间为一小时,默认设置为： 
